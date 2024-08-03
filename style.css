@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulidisplay=swap');
+
+:root {
+    --line-border-fill: #3498db; /*create these varialble so if you want to change it later, you change it once up here, rather than doing it manually in every single place where you used this color*/
+    --line-border-empty: #e0e0e0;
+}
+
+*{
+    box-sizing: border-box;
+} /*apply to the universal selector (* - everything) a box sizing property and set it border box, so if we add any padding or border to an element, it doesn't effect the width of it */
+
+body {
+    background-color: #f6f7fb;
+    font-family: 'Muli', sans-serif;
+    display: flex; /*elements displayed horizontally*/
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /*it takes all the display*/
+    overflow: hidden; /*prevent unwanted horizontal scrolling and extra whitespace in your project when elements exist outside the viewport*/
+    margin: 0;
+}
+
+.container{
+    text-align: center;
+}
+
+.progress-container{
+    display: flex; /*it dispaly the childs of the container horizontally (the numbers) */
+    justify-content: space-between; /*it space out the mumbers with space between them, no mspace before first element or after last element*/
+    position: relative;
+    margin-bottom: 30px; /*space between the numbers and the buttons*/
+    width: 350px;
+    max-width: 100%; /*how mauch space you want these elements to take*/
+    /*border: 2px solid red;*/
+}
+
+.progress-container::before/*copied the elements of .progress to make a before with the grey line under the numbers*/{
+    content: ''; /*when you use before or after, you need to add content and set it to an empty string, otherwise you will not see the changes*/
+    background-color: var(--line-border-empty);
+    position: absolute; /*it plece the element by default to the top right corner of its parent elemet which has the position:relative*/
+    top: 50%; /*the element will move 50% from the top*/
+    left: 0;
+    transform: translateY(-50%); /*Y is the vertical axis and this is moving the element to be perfectly in the middle. Without this the top of the line is in the middle but we want the middle of the line to be in the middle */
+    height: 4px;
+    width: 100%;
+    z-index: -1; /*put the progress bar behind the numbers*/
+}
+
+.progress /*for the blue progress line*/{
+    background-color: var(--line-border-fill);
+    position: absolute; /*it plece the element by default to the top right corner of its parent elemet which has the position:relative*/
+    top: 50%; /*the element will move 50% from the top*/
+    left: 0;
+    transform: translateY(-50%); /*Y is the vertical axis and this is moving the element to be perfectly in the middle. Without this the top of the line is in the middle but we want the middle of the line to be in the middle */
+    height: 4px;
+    width: 0%;
+    z-index: -1; /*put the progress bar behind the numbers*/
+    transition: 0.4s ease;/*when we click Prev or Next, we want the line to have a transition*/ 
+}
+
+.circle {
+    background-color: #fff;
+    color: #999; /*color of the numbers*/
+    border-radius: 50%; /*it makes it round*/
+    height: 30px;
+    width: 30px;
+    display: flex; /*we use this to be able to put the numbers in the middle of the circle*/
+    align-items: center; /*puts the number in the center vertically*/
+    justify-content: center; /*puts the number in the center horizontally*/
+    border: 3px solid var(--line-border-empty);
+}
+
+.circle.active {
+    border-color: var(--line-border-fill);
+}
+
+.btn {
+    background-color: var(--line-border-fill);
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer; /*little hand when you hover on top of the button*/
+    font-family: inherit;
+    padding:8px 30px;/* 1st vertically, 2nd horizontally*/
+    margin: 5px; /*space between the 2 buttons*/
+    font-size: 14px;
+}
+
+.btn:active {
+    transform: scale(.98); /*the button slightly shrinks when clicked*/
+}
+
+.btn:focus {
+    outline: 0; 
+}
+
+.btn:disabled {
+    background-color: var(--line-border-empty);
+    cursor: not-allowed;
+}
